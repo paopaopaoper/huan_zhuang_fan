@@ -1,0 +1,215 @@
+<!--pages/profile/profile.wxml-->
+<view class="page">
+
+  <!-- 顶部用户区 -->
+  <view class="hero">
+    <view class="hero-bg"></view>
+    <view class="hero-decor hero-decor-1"></view>
+    <view class="hero-decor hero-decor-2"></view>
+
+    <!-- 未登录 -->
+    <view class="hero-content" wx:if="{{!userInfo}}">
+      <view class="avatar-wrap-gray" bindtap="showLoginOverlay">
+        <image class="avatar-gray" src="/images/avatar.png" mode="aspectFill"/>
+      </view>
+      <view class="user-info">
+        <text class="nickname">未登录</text>
+        <text class="user-id">点击头像登录</text>
+      </view>
+    </view>
+
+    <!-- 已登录 -->
+    <view class="hero-content hero-logged" wx:else>
+      <button class="avatar-edit-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{userInfo.avatarUrl || '/images/avatar.png'}}" mode="aspectFill"/>
+      </button>
+      <view class="user-info-right">
+        <input class="nickname-input" type="nickname" value="{{userInfo.nickName}}" bindblur="onNicknameInput" />
+        <view class="quota-row">
+          <text class="quota-badge">💇 {{hairstyleRemaining}}</text>
+          <text class="quota-badge">👗 {{tryonRemaining}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 次数卡片：分类展示 -->
+  <view class="stats-card m-card">
+    <view class="stats-item">
+      <text class="stats-value stats-primary">{{hairstyleRemaining}}</text>
+      <text class="stats-label">💇 发型次数</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <text class="stats-value stats-primary">{{tryonRemaining}}</text>
+      <text class="stats-label">👗 换装次数</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <text class="stats-value">{{adPoints}}</text>
+      <text class="stats-label">🎬 广告积分</text>
+    </view>
+  </view>
+
+  <!-- 积分兑换说明 -->
+  <view class="exchange-tip m-card" wx:if="{{exchangeTipText}}">
+    <text class="exchange-tip-text">{{exchangeTipText}}</text>
+  </view>
+
+  <!-- 广告补充积分卡片 -->
+  <view class="ad-card m-card" wx:if="{{userInfo}}">
+    <view class="ad-card-left">
+      <text class="ad-card-title">🎬 看广告获取积分</text>
+      <text class="ad-card-desc">每次广告+1积分 · 发型4分/次 · 换装2分/次</text>
+      <view class="ad-progress-bar">
+        <view class="ad-progress-fill" style="width: {{adProgressPercent}}%"></view>
+      </view>
+      <text class="ad-progress-label">今日已看 {{adDailyCount}} / {{adDailyLimit}} 次 · 还剩 {{adDailyLeft}} 次</text>
+    </view>
+    <button class="ad-watch-btn {{adDailyLeft <= 0 ? 'ad-watch-btn-disabled' : ''}}" 
+            bindtap="watchAd" 
+            disabled="{{adLoading || adDailyLeft <= 0}}">
+      <text wx:if="{{adLoading}}">加载中...</text>
+      <text wx:elif="{{adDailyLeft <= 0}}">明天再来</text>
+      <text wx:else>看广告</text>
+    </button>
+  </view>
+
+  <!-- 历史记录 -->
+  <view class="history-card m-card" wx:if="{{userInfo}}">
+    <view class="history-header">
+      <text class="history-title">最近记录</text>
+    </view>
+    <view class="history-tabs">
+      <view class="history-tab {{historyTab === 'tryon' ? 'tab-active' : ''}}" bindtap="switchHistoryTab" data-tab="tryon">
+        <text>👗 试衣</text>
+        <text class="tab-count" wx:if="{{tryonCount > 0}}">{{tryonCount}}</text>
+      </view>
+      <view class="history-tab {{historyTab === 'hairstyle' ? 'tab-active' : ''}}" bindtap="switchHistoryTab" data-tab="hairstyle">
+        <text>💇 换发型</text>
+        <text class="tab-count" wx:if="{{hairstyleCount > 0}}">{{hairstyleCount}}</text>
+      </view>
+    </view>
+    <view class="history-list" wx:if="{{historyList.length > 0}}">
+      <view class="history-item" wx:for="{{historyList}}" wx:key="_id" bindtap="previewHistory" data-url="{{item.resultUrl}}">
+        <image class="history-thumb" src="{{item.resultUrl}}" mode="aspectFill" lazy-load/>
+        <text class="history-date">{{item.dateStr}}</text>
+      </view>
+    </view>
+    <view class="history-empty" wx:else>
+      <text class="history-empty-text">暂无记录，去体验一下吧</text>
+    </view>
+    <view class="history-footer" wx:if="{{historyList.length > 0}}" bindtap="goHistoryAll">
+      <text>查看全部</text>
+      <view class="arrow-icon"></view>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="menu-card m-card">
+    <view class="menu-item" bindtap="shareToFriends">
+      <view class="menu-left">
+        <view class="menu-icon-wrap share-bg">
+          <text class="menu-emoji">🎉</text>
+        </view>
+        <view class="menu-text-group">
+          <text class="menu-text">分享到朋友圈</text>
+          <text class="menu-sub">每日分享获得 3 次免费机会</text>
+        </view>
+      </view>
+      <view class="menu-arrow"><view class="arrow-icon"></view></view>
+    </view>
+    <view class="menu-item" bindtap="inviteFriends">
+      <view class="menu-left">
+        <view class="menu-icon-wrap invite-bg">
+          <text class="menu-emoji">👥</text>
+        </view>
+        <view class="menu-text-group">
+          <text class="menu-text">邀请好友</text>
+          <text class="menu-sub">每邀请1人获得 5 次免费机会</text>
+        </view>
+      </view>
+      <view class="menu-arrow"><view class="arrow-icon"></view></view>
+    </view>
+    <view class="menu-item" bindtap="goTryonHistory">
+      <view class="menu-left">
+        <view class="menu-icon-wrap tryon-bg">
+          <text class="menu-emoji">👗</text>
+        </view>
+        <view class="menu-text-group">
+          <text class="menu-text">试衣历史</text>
+          <text class="menu-sub">查看之前的试衣效果</text>
+        </view>
+      </view>
+      <view class="menu-arrow"><view class="arrow-icon"></view></view>
+    </view>
+    <view class="menu-item" bindtap="goHairstyleHistory">
+      <view class="menu-left">
+        <view class="menu-icon-wrap hair-bg">
+          <text class="menu-emoji">💇</text>
+        </view>
+        <view class="menu-text-group">
+          <text class="menu-text">换发型历史</text>
+          <text class="menu-sub">查看之前的换发效果</text>
+        </view>
+      </view>
+      <view class="menu-arrow"><view class="arrow-icon"></view></view>
+    </view>
+  </view>
+
+  <!-- 关于 -->
+  <view class="menu-card m-card">
+    <view class="menu-item" bindtap="showAbout">
+      <view class="menu-left">
+        <view class="menu-icon-wrap about-bg">
+          <text class="menu-emoji">💡</text>
+        </view>
+        <text class="menu-text">关于换装范</text>
+      </view>
+      <view class="menu-arrow"><view class="arrow-icon"></view></view>
+    </view>
+    <view class="menu-item" bindtap="feedback">
+      <view class="menu-left">
+        <view class="menu-icon-wrap feedback-bg">
+          <text class="menu-emoji">✉️</text>
+        </view>
+        <text class="menu-text">意见反馈</text>
+      </view>
+      <view class="menu-arrow"><view class="arrow-icon"></view></view>
+    </view>
+  </view>
+
+  <view class="version-text">换装范 v1.0.0</view>
+  <view class="safe-bottom"></view>
+
+  <!-- 登录弹窗 -->
+  <view class="login-overlay" wx:if="{{showLogin}}">
+    <view class="login-mask"></view>
+    <view class="login-card">
+      <view class="login-header">
+        <text class="login-logo">✨</text>
+        <text class="login-title">登录换装范</text>
+        <text class="login-subtitle">使用微信账号快速登录</text>
+      </view>
+      <view class="login-body">
+        <button class="login-avatar-btn" open-type="chooseAvatar" bindchooseavatar="onLoginChooseAvatar">
+          <image class="login-avatar-img" src="{{tempAvatarUrl || '/images/avatar.png'}}" mode="aspectFill"/>
+          <view class="login-avatar-add" wx:if="{{!tempAvatarUrl}}">
+            <text class="login-avatar-add-icon">+</text>
+          </view>
+        </button>
+        <view class="login-avatar-label">{{tempAvatarUrl ? '已选择头像' : '点击选择头像'}}</view>
+        <view class="login-nickname-wrap">
+          <input class="login-nickname-input" type="nickname" placeholder="请输入昵称" value="{{tempNickName}}" bindblur="onLoginNicknameInput" bindconfirm="onLoginNicknameInput" />
+        </view>
+      </view>
+      <view class="login-footer">
+        <button class="login-confirm-btn" bindtap="doLogin" disabled="{{!tempAvatarUrl || !tempNickName || loginLoading}}" loading="{{loginLoading}}">
+          {{loginLoading ? '登录中...' : '完成登录'}}
+        </button>
+        <text class="login-skip" bindtap="skipLogin">暂不登录</text>
+      </view>
+    </view>
+  </view>
+
+</view>

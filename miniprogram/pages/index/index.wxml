@@ -1,0 +1,261 @@
+<!--pages/index/index.wxml-->
+<view class="page">
+
+  <!-- 顶部品牌区 -->
+  <view class="hero">
+    <view class="hero-bg"></view>
+    <view class="hero-decor hero-decor-1"></view>
+    <view class="hero-decor hero-decor-2"></view>
+    <view class="hero-content">
+      <view class="logo-wrap">
+        <text class="logo-icon">✨</text>
+      </view>
+      <view class="brand-name">换装范</view>
+      <view class="brand-slogan">AI 换发型 · 虚拟试衣</view>
+      <view class="brand-sub">上传一张照片，秒变时尚达人</view>
+    </view>
+  </view>
+
+  <!-- 配额条 -->
+  <view class="quota-bar m-card">
+    <view class="quota-left">
+      <view class="quota-icon-wrap">
+        <text class="quota-icon">🎁</text>
+      </view>
+      <view class="quota-info">
+        <text class="quota-label">剩余次数</text>
+        <text class="quota-hint">分享可获取更多</text>
+      </view>
+    </view>
+    <view class="quota-right">
+      <text class="quota-badge">💇 {{hairstyleRemaining}}</text>
+      <text class="quota-badge">👗 {{tryonRemaining}}</text>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="feature-list">
+
+    <!-- 试衣 -->
+    <view class="feature-card m-card" bindtap="goTryon">
+      <view class="card-icon-wrap tryon-icon">
+        <text class="card-icon">👗</text>
+      </view>
+      <view class="card-body">
+        <view class="card-title">虚拟试衣</view>
+        <view class="card-desc">上传服装照片，一键穿在身上</view>
+        <view class="card-tags">
+          <view class="tag">真实感强</view>
+          <view class="tag">多款搭配</view>
+        </view>
+      </view>
+      <view class="card-arrow">
+        <view class="arrow-icon"></view>
+      </view>
+    </view>
+
+    <!-- 换发型 -->
+    <view class="feature-card m-card" bindtap="goHairstyle">
+      <view class="card-icon-wrap hair-icon">
+        <text class="card-icon">💇</text>
+      </view>
+      <view class="card-body">
+        <view class="card-title">AI 换发型</view>
+        <view class="card-desc">上传参考发型，智能换头发</view>
+        <view class="card-tags">
+          <view class="tag">自然融合</view>
+          <view class="tag">支持参考图</view>
+        </view>
+      </view>
+      <view class="card-arrow">
+        <view class="arrow-icon"></view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- ====== 虚拟试衣 效果示范 ====== -->
+  <view class="demo-section m-card">
+    <view class="demo-header">
+      <view class="demo-title-badge tryon-badge">试衣</view>
+      <view class="demo-title">虚拟试衣效果</view>
+    </view>
+    <view class="demo-tips">
+      <view class="tip-item">
+        <view class="tip-icon person-bg">
+          <text class="tip-emoji">👤</text>
+        </view>
+        <view class="tip-content">
+          <view class="tip-title">人像要求</view>
+          <view class="tip-desc">正面全身照 · 光线充足 · 姿势自然</view>
+        </view>
+      </view>
+      <view class="tip-item">
+        <view class="tip-icon clothes-bg">
+          <text class="tip-emoji">👕</text>
+        </view>
+        <view class="tip-content">
+          <view class="tip-title">服装要求</view>
+          <view class="tip-desc">单独展示 · 平铺/悬挂 · 无遮挡</view>
+        </view>
+      </view>
+    </view>
+    <view class="case-showcase">
+      <view class="case-row">
+        <view class="case-item">
+          <image class="case-img" src="/images/cases/person-demo.jpg" mode="aspectFit" />
+          <view class="case-label">✅ 标准人像</view>
+        </view>
+        <view class="case-arrow">
+          <view class="arrow-right"></view>
+        </view>
+        <view class="case-item">
+          <image class="case-img" src="/images/cases/clothes-demo.jpg" mode="aspectFit" />
+          <view class="case-label">✅ 标准服装</view>
+        </view>
+        <view class="case-arrow">
+          <view class="arrow-right"></view>
+        </view>
+        <view class="case-item">
+          <image class="case-img case-result" src="/images/cases/result-demo.jpg" mode="aspectFit" />
+          <view class="case-label case-label-result">🎉 试衣效果</view>
+        </view>
+      </view>
+    </view>
+    <button class="demo-btn tryon-gradient" bindtap="goTryon">立即体验试衣</button>
+  </view>
+
+  <!-- ====== AI换发型 效果示范 ====== -->
+  <view class="demo-section m-card">
+    <view class="demo-header">
+      <view class="demo-title-badge hair-badge">发型</view>
+      <view class="demo-title">AI 换发型效果</view>
+    </view>
+    <view class="demo-tips">
+      <view class="tip-item">
+        <view class="tip-icon face-bg">
+          <text class="tip-emoji">👤</text>
+        </view>
+        <view class="tip-content">
+          <view class="tip-title">人像要求</view>
+          <view class="tip-desc">正面清晰人脸 · 光线均匀 · 五官无遮挡</view>
+        </view>
+      </view>
+      <view class="tip-item">
+        <view class="tip-icon hair-tip-bg">
+          <text class="tip-emoji">💇</text>
+        </view>
+        <view class="tip-content">
+          <view class="tip-title">发型参考</view>
+          <view class="tip-desc">含清晰发型 · 正面或侧面 · 同性效果更佳</view>
+        </view>
+      </view>
+    </view>
+    <view class="case-showcase">
+      <view class="case-row">
+        <view class="case-item">
+          <image class="case-img" src="/images/cases/face-demo.jpg" mode="aspectFit" />
+          <view class="case-label">✅ 标准人像</view>
+        </view>
+        <view class="case-arrow">
+          <view class="arrow-right"></view>
+        </view>
+        <view class="case-item">
+          <image class="case-img" src="/images/cases/hair-demo.jpg" mode="aspectFit" />
+          <view class="case-label">✅ 目标发型</view>
+        </view>
+        <view class="case-arrow">
+          <view class="arrow-right"></view>
+        </view>
+        <view class="case-item">
+          <image class="case-img case-result" src="/images/cases/hair-result-demo.jpg" mode="aspectFit" />
+          <view class="case-label case-label-result">🎉 换发效果</view>
+        </view>
+      </view>
+    </view>
+    <button class="demo-btn hair-gradient" bindtap="goHairstyle">立即体验换发型</button>
+  </view>
+
+  <!-- 获取更多次数 -->
+  <view class="earn-section m-card">
+    <view class="earn-title">免费获取更多次数</view>
+    <view class="earn-list">
+      <view class="earn-item">
+        <view class="earn-icon-wrap share-bg">
+          <text class="earn-icon">🎉</text>
+        </view>
+        <view class="earn-info">
+          <view class="earn-action">分享到朋友圈</view>
+          <view class="earn-reward">+3 次免费机会</view>
+        </view>
+        <button class="earn-btn share-btn" open-type="share">去分享</button>
+      </view>
+      <view class="earn-divider"></view>
+      <view class="earn-item">
+        <view class="earn-icon-wrap invite-bg">
+          <text class="earn-icon">👥</text>
+        </view>
+        <view class="earn-info">
+          <view class="earn-action">邀请好友使用</view>
+          <view class="earn-reward">+5 次免费机会</view>
+        </view>
+        <button class="earn-btn invite-btn" bindtap="inviteFriend">去邀请</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 使用流程 -->
+  <view class="guide-section m-card">
+    <view class="guide-title">使用流程</view>
+    <view class="guide-steps">
+      <view class="step">
+        <view class="step-num">1</view>
+        <view class="step-text">上传您的照片</view>
+      </view>
+      <view class="step-line"></view>
+      <view class="step">
+        <view class="step-num">2</view>
+        <view class="step-text">上传服装/发型</view>
+      </view>
+      <view class="step-line"></view>
+      <view class="step">
+        <view class="step-num">3</view>
+        <view class="step-text">AI 生成效果图</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部安全距离 -->
+  <view class="safe-bottom"></view>
+
+  <!-- ====== 登录弹窗 ====== -->
+  <view class="login-overlay" wx:if="{{showLogin}}">
+    <view class="login-mask"></view>
+    <view class="login-card">
+      <view class="login-header">
+        <text class="login-logo">✨</text>
+        <text class="login-title">登录换装范</text>
+        <text class="login-subtitle">使用微信账号快速登录</text>
+      </view>
+      <view class="login-body">
+        <button class="login-avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+          <image class="login-avatar-img" src="{{tempAvatarUrl || '/images/avatar.png'}}" mode="aspectFill"/>
+          <view class="login-avatar-add" wx:if="{{!tempAvatarUrl}}">
+            <text class="login-avatar-add-icon">+</text>
+          </view>
+        </button>
+        <view class="login-avatar-label">{{tempAvatarUrl ? '已选择头像' : '点击选择头像'}}</view>
+        <view class="login-nickname-wrap">
+          <input class="login-nickname-input" type="nickname" placeholder="请输入昵称" value="{{tempNickName}}" bindblur="onNicknameInput" bindconfirm="onNicknameInput" />
+        </view>
+      </view>
+      <view class="login-footer">
+        <button class="login-confirm-btn" bindtap="doLogin" disabled="{{!tempAvatarUrl || !tempNickName || loginLoading}}" loading="{{loginLoading}}">
+          {{loginLoading ? '登录中...' : '完成登录'}}
+        </button>
+        <text class="login-skip" bindtap="skipLogin">暂不登录</text>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,9 @@
+{
+  "name": "manageQuota",
+  "version": "1.0.0",
+  "description": "统一管理用户额度：查询/扣减/分享加/邀请加",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

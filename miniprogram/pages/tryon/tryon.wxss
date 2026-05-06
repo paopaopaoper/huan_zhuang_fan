@@ -1,0 +1,383 @@
+/* pages/tryon/tryon.wxss — 莫兰迪紫风格 */
+
+/* ===== 基础 ===== */
+.page {
+  min-height: 100vh;
+  background: var(--morandi-bg);
+}
+
+/* ===== 顶部标题 ===== */
+.page-header {
+  position: relative;
+  overflow: hidden;
+}
+.header-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(155deg, #7B6EA3 0%, #9B8EC4 50%, #B8AAD4 100%);
+}
+.header-decor {
+  position: absolute;
+  width: 240rpx; height: 240rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  top: -60rpx; right: -40rpx;
+}
+.header-content {
+  position: relative;
+  padding: 48rpx 40rpx 56rpx;
+  color: #fff;
+}
+.page-title {
+  font-size: 44rpx;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+  letter-spacing: 2rpx;
+}
+.page-sub {
+  font-size: 26rpx;
+  opacity: 0.85;
+  letter-spacing: 1rpx;
+}
+
+/* ===== 上传区 ===== */
+.upload-section {
+  margin: -24rpx 24rpx 0;
+  border-radius: 24rpx;
+  padding: 28rpx 24rpx;
+  position: relative;
+  z-index: 2;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.label-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+.person-dot  { background: var(--morandi-primary); }
+.garment-dot { background: var(--morandi-accent); }
+.label-text {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--morandi-text);
+}
+
+/* ===== 照片提示 ===== */
+.photo-tips {
+  padding: 16rpx 20rpx;
+  background: var(--morandi-tag-bg);
+  border-radius: 14rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+.tip-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+.tip-icon {
+  width: 20rpx; height: 20rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+}
+.tip-ok {
+  background: #A8C5A0;
+}
+.tip-ok::after {
+  content: '';
+  position: absolute;
+  left: 6rpx; top: 3rpx;
+  width: 6rpx; height: 10rpx;
+  border-right: 2rpx solid #fff;
+  border-bottom: 2rpx solid #fff;
+  transform: rotate(45deg);
+}
+.tip-no {
+  background: var(--morandi-accent);
+}
+.tip-no::after {
+  content: '';
+  position: absolute;
+  left: 4rpx; top: 9rpx;
+  width: 12rpx; height: 2rpx;
+  background: #fff;
+  border-radius: 1rpx;
+}
+.tip-text {
+  font-size: 22rpx;
+  color: var(--morandi-text-secondary);
+  line-height: 1.5;
+}
+
+/* ===== 图片网格 ===== */
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+.img-item {
+  position: relative;
+  width: 156rpx;
+  height: 156rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+  background: var(--morandi-tag-bg);
+}
+.thumb { width: 100%; height: 100%; display: block; }
+.del-btn {
+  position: absolute;
+  top: 6rpx; right: 6rpx;
+  width: 40rpx; height: 40rpx;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+.img-badge {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(155, 142, 196, 0.85);
+  color: #fff;
+  font-size: 20rpx;
+  text-align: center;
+  padding: 4rpx 0;
+  letter-spacing: 1rpx;
+}
+.garment-badge { background: rgba(201, 169, 180, 0.85); }
+
+.add-btn {
+  width: 156rpx;
+  height: 156rpx;
+  border-radius: 16rpx;
+  border: 2rpx dashed var(--morandi-primary-lighter);
+  background: var(--morandi-tag-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.add-btn:active { background: var(--morandi-primary-lighter); }
+.add-inner { display: flex; flex-direction: column; align-items: center; }
+.add-plus {
+  width: 36rpx; height: 36rpx;
+  position: relative;
+  margin-bottom: 8rpx;
+}
+.add-plus::before,
+.add-plus::after {
+  content: '';
+  position: absolute;
+  background: var(--morandi-primary-light);
+  border-radius: 2rpx;
+}
+.add-plus::before {
+  width: 36rpx; height: 4rpx;
+  top: 16rpx; left: 0;
+}
+.add-plus::after {
+  width: 4rpx; height: 36rpx;
+  top: 0; left: 16rpx;
+}
+.add-label { font-size: 22rpx; color: var(--morandi-text-muted); }
+
+/* ===== 人脸检测提示 ===== */
+.face-tip {
+  margin-top: 16rpx;
+  padding: 14rpx 20rpx;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+.face-tip.warn {
+  background: #FDF3EF;
+  color: #A0675B;
+  border: 1rpx solid #F0DDD6;
+}
+.face-tip.ok {
+  background: #EFF5EE;
+  color: #6B8F65;
+  border: 1rpx solid #D5E2D3;
+}
+
+/* ===== 分隔符 ===== */
+.section-divider {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 40rpx;
+}
+.divider-line {
+  flex: 1;
+  height: 1rpx;
+  background: var(--morandi-border);
+}
+.divider-text {
+  font-size: 22rpx;
+  color: var(--morandi-text-muted);
+  padding: 0 20rpx;
+  letter-spacing: 4rpx;
+}
+
+/* ===== 上传进度 ===== */
+.uploading-tip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  padding: 20rpx;
+  font-size: 26rpx;
+  color: var(--morandi-primary);
+}
+.spinner {
+  width: 36rpx; height: 36rpx;
+  border: 4rpx solid var(--morandi-primary-lighter);
+  border-top-color: var(--morandi-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== 操作区 ===== */
+.action-area { padding: 24rpx 24rpx 0; }
+.gen-btn {
+  width: 100% !important;
+  height: 100rpx !important;
+  background: var(--morandi-gradient) !important;
+  color: #fff !important;
+  border-radius: 50rpx !important;
+  font-size: 34rpx !important;
+  font-weight: 600 !important;
+  letter-spacing: 2rpx;
+  border: none !important;
+  box-shadow: 0 8rpx 24rpx rgba(155, 142, 196, 0.35) !important;
+  transition: opacity 0.2s;
+  /* 修复文字垂直居中 */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  box-sizing: border-box !important;
+}
+.gen-btn-disabled {
+  background: var(--morandi-border) !important;
+  color: var(--morandi-text-muted) !important;
+  box-shadow: none !important;
+}
+
+/* ===== 进度卡片 ===== */
+.progress-card {
+  margin: 24rpx 24rpx 0;
+  border-radius: 20rpx;
+  padding: 36rpx 24rpx;
+  text-align: center;
+}
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+.progress-dots .dot {
+  width: 12rpx; height: 12rpx;
+  border-radius: 50%;
+  background: var(--morandi-primary-light);
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+.progress-dots .dot:nth-child(2) { animation-delay: 0.2s; }
+.progress-dots .dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.5); opacity: 1; }
+}
+.progress-text {
+  font-size: 28rpx;
+  color: var(--morandi-primary);
+  font-weight: 500;
+  margin-bottom: 8rpx;
+}
+.progress-hint { font-size: 24rpx; color: var(--morandi-text-muted); }
+
+/* ===== 结果区 ===== */
+.result-section {
+  margin: 24rpx 24rpx 0;
+  border-radius: 24rpx;
+  padding: 28rpx 24rpx;
+}
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+.result-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--morandi-text);
+}
+.result-badge {
+  font-size: 20rpx;
+  color: var(--morandi-primary);
+  background: var(--morandi-tag-bg);
+  padding: 4rpx 14rpx;
+  border-radius: 16rpx;
+}
+.result-img {
+  width: 100%;
+  border-radius: 16rpx;
+  display: block;
+}
+.result-actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 24rpx;
+}
+.save-btn {
+  flex: 1;
+  height: 88rpx !important;
+  background: var(--morandi-gradient) !important;
+  color: #fff !important;
+  border-radius: 44rpx !important;
+  font-size: 28rpx !important;
+  border: none !important;
+  letter-spacing: 1rpx;
+  /* 修复文字垂直居中 */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+.retry-btn {
+  flex: 1;
+  height: 88rpx !important;
+  background: var(--morandi-tag-bg) !important;
+  color: var(--morandi-text-secondary) !important;
+  border-radius: 44rpx !important;
+  font-size: 28rpx !important;
+  border: none !important;
+  letter-spacing: 1rpx;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+/* ===== 安全距离 ===== */
+.safe-bottom { height: 60rpx; }

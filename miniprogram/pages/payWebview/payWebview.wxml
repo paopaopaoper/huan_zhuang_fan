@@ -1,0 +1,4 @@
+<!--pages/payWebview/payWebview.wxml-->
+<view class="page">
+  <web-view src="{{url}}" bindmessage="onWebMessage" bindload="onLoad" binderror="onError"></web-view>
+</view>

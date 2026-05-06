@@ -1,0 +1,43 @@
+<!--pages/test/test.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">云函数测试</text>
+    <text class="subtitle">测试云函数连通性和数据库读写</text>
+  </view>
+
+  <!-- 测试结果展示 -->
+  <scroll-view class="test-results" scroll-y="true">
+    <block wx:for="{{testResults}}" wx:key="index">
+      <view class="result-item {{item.type}}">
+        <text>{{item.message}}</text>
+      </view>
+    </block>
+  </scroll-view>
+
+  <!-- 测试按钮 -->
+  <view class="test-buttons">
+    <button class="btn-primary" bindtap="testGetUserQuota" disabled="{{isTesting}}">
+      测试 getUserQuota
+    </button>
+    
+    <button class="btn-secondary" bindtap="testTryonClothes" disabled="{{isTesting}}">
+      测试 tryonClothes（需真机）
+    </button>
+    
+    <button class="btn-secondary" bindtap="testChangeHairstyle" disabled="{{isTesting}}">
+      测试 changeHairstyle（需真机）
+    </button>
+    
+    <button class="btn-warning" bindtap="clearResults">
+      清空测试结果
+    </button>
+  </view>
+
+  <!-- 提示信息 -->
+  <view class="tips">
+    <text class="tip-title">📋 测试说明：</text>
+    <text class="tip-content">1. 先测试 getUserQuota，验证数据库连通性</text>
+    <text class="tip-content">2. 真机测试时再测试其他两个云函数</text>
+    <text class="tip-content">3. 确保云函数已上传并配置了环境变量</text>
+  </view>
+</view>

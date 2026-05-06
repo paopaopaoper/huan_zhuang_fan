@@ -1,0 +1,61 @@
+/**app.wxss — 莫兰迪紫全局样式**/
+
+/* ===== 莫兰迪紫配色系统 ===== */
+page {
+  --morandi-primary: #9B8EC4;
+  --morandi-primary-light: #B8AAD4;
+  --morandi-primary-lighter: #D4CBE4;
+  --morandi-primary-dark: #7B6EA3;
+  --morandi-accent: #C9A9B4;
+  --morandi-bg: #F5F3F8;
+  --morandi-card: #FFFFFF;
+  --morandi-text: #2D2640;
+  --morandi-text-secondary: #6B6380;
+  --morandi-text-muted: #9A94A8;
+  --morandi-border: #E8E3F0;
+  --morandi-tag-bg: #EDE8F5;
+  --morandi-tag-text: #7B6EA3;
+  --morandi-gradient: linear-gradient(145deg, #9B8EC4 0%, #B8AAD4 50%, #C4A8D4 100%);
+  --morandi-gradient-warm: linear-gradient(145deg, #9B8EC4 0%, #C9A9B4 100%);
+  --morandi-shadow: 0 4rpx 20rpx rgba(123, 110, 163, 0.10);
+  --morandi-shadow-lg: 0 8rpx 32rpx rgba(123, 110, 163, 0.12);
+
+  background: var(--morandi-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: var(--morandi-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+button {
+  background: initial;
+}
+
+button:focus {
+  outline: 0;
+}
+
+button::after {
+  border: none;
+}
+
+/* ===== 通用卡片 ===== */
+.m-card {
+  background: var(--morandi-card);
+  border-radius: 24rpx;
+  box-shadow: var(--morandi-shadow);
+}
+
+/* ===== 通用安全区 ===== */
+.safe-bottom {
+  height: calc(env(safe-area-inset-bottom) + 32rpx);
+}

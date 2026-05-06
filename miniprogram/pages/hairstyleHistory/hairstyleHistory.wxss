@@ -1,0 +1,61 @@
+/* pages/hairstyleHistory/hairstyleHistory.wxss */
+.page {
+  min-height: 100vh;
+  background: var(--morandi-bg);
+  padding: 20rpx 24rpx;
+}
+.history-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+.history-card {
+  width: calc(33.33% - 12rpx);
+  border-radius: 16rpx;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+.history-img {
+  width: 100%;
+  height: 320rpx;
+  display: block;
+}
+.history-info {
+  padding: 10rpx 12rpx;
+}
+.history-date {
+  font-size: 20rpx;
+  color: var(--morandi-text-muted);
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 200rpx;
+}
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 24rpx;
+}
+.empty-text {
+  font-size: 30rpx;
+  color: var(--morandi-text);
+  margin-bottom: 8rpx;
+}
+.empty-hint {
+  font-size: 24rpx;
+  color: var(--morandi-text-muted);
+}
+.loading {
+  text-align: center;
+  padding: 60rpx 0;
+  font-size: 26rpx;
+  color: var(--morandi-text-muted);
+}
+.load-more {
+  text-align: center;
+  padding: 32rpx 0;
+  font-size: 26rpx;
+  color: var(--morandi-primary);
+}

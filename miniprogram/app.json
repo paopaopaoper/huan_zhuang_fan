@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/tryon/tryon",
+    "pages/hairstyle/hairstyle",
+    "pages/profile/profile",
+    "pages/tryonHistory/tryonHistory",
+    "pages/hairstyleHistory/hairstyleHistory",
+    "pages/payWebview/payWebview",
+    "pages/test/test"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#9B8EC4",
+    "navigationBarTitleText": "换装范",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F3F8"
+  },
+  "tabBar": {
+    "color": "#9A94A8",
+    "selectedColor": "#7B6EA3",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/tryon/tryon",
+        "text": "试衣",
+        "iconPath": "images/tab-tryon.png",
+        "selectedIconPath": "images/tab-tryon-active.png"
+      },
+      {
+        "pagePath": "pages/hairstyle/hairstyle",
+        "text": "换发型",
+        "iconPath": "images/tab-hairstyle.png",
+        "selectedIconPath": "images/tab-hairstyle-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab-profile.png",
+        "selectedIconPath": "images/tab-profile-active.png"
+      }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "cloud": true,
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

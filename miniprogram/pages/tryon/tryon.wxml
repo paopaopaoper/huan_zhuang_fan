@@ -1,0 +1,125 @@
+<!--pages/tryon/tryon.wxml-->
+<view class="page">
+
+  <!-- 顶部标题栏 -->
+  <view class="page-header">
+    <view class="header-bg"></view>
+    <view class="header-decor"></view>
+    <view class="header-content">
+      <view class="page-title">虚拟试衣</view>
+      <view class="page-sub">上传照片，AI 帮你穿上任意服装</view>
+    </view>
+  </view>
+
+  <!-- 上传区：我的照片 -->
+  <view class="upload-section m-card">
+    <view class="section-label">
+      <view class="label-dot person-dot"></view>
+      <text class="label-text">我的照片</text>
+    </view>
+    <view class="photo-tips">
+      <view class="tip-row">
+        <view class="tip-icon tip-ok"></view>
+        <text class="tip-text">正面站立、光线均匀、背景简洁</text>
+      </view>
+      <view class="tip-row">
+        <view class="tip-icon tip-no"></view>
+        <text class="tip-text">侧身、遮挡面部、多人合照</text>
+      </view>
+    </view>
+    <view class="image-grid">
+      <view class="img-item" wx:for="{{personImages}}" wx:key="index">
+        <image src="{{item.url}}" mode="aspectFill" class="thumb"/>
+        <view class="del-btn" bindtap="removePersonImage" data-index="{{index}}">×</view>
+        <view class="img-badge" wx:if="{{index === 0}}">主图</view>
+      </view>
+      <view class="add-btn" bindtap="pickPersonImages" wx:if="{{personImages.length < 5}}">
+        <view class="add-inner">
+          <view class="add-plus"></view>
+          <text class="add-label">添加照片</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分隔符 -->
+  <view class="section-divider">
+    <view class="divider-line"></view>
+    <text class="divider-text">搭配</text>
+    <view class="divider-line"></view>
+  </view>
+
+  <!-- 上传区：服装照片 -->
+  <view class="upload-section m-card">
+    <view class="section-label">
+      <view class="label-dot garment-dot"></view>
+      <text class="label-text">服装照片</text>
+    </view>
+    <view class="photo-tips">
+      <view class="tip-row">
+        <view class="tip-icon tip-ok"></view>
+        <text class="tip-text">平铺白底、正面完整、无褶皱</text>
+      </view>
+      <view class="tip-row">
+        <view class="tip-icon tip-no"></view>
+        <text class="tip-text">模特遮挡、复杂背景、模糊</text>
+      </view>
+    </view>
+    <view class="image-grid">
+      <view class="img-item" wx:for="{{garmentImages}}" wx:key="index">
+        <image src="{{item.url}}" mode="aspectFill" class="thumb"/>
+        <view class="del-btn" bindtap="removeGarmentImage" data-index="{{index}}">×</view>
+        <view class="img-badge garment-badge" wx:if="{{index === 0}}">主图</view>
+      </view>
+      <view class="add-btn" bindtap="pickGarmentImages" wx:if="{{garmentImages.length < 5}}">
+        <view class="add-inner">
+          <view class="add-plus"></view>
+          <text class="add-label">添加服装</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 上传中提示 -->
+  <view class="uploading-tip" wx:if="{{isUploading}}">
+    <view class="spinner"></view>
+    <text>照片上传中，请稍候...</text>
+  </view>
+
+  <!-- 生成按钮 -->
+  <view class="action-area">
+    <button class="gen-btn {{(isProcessing || isUploading) ? 'gen-btn-disabled' : ''}}"
+            bindtap="startTryon"
+            disabled="{{isProcessing || isUploading}}">
+      <text wx:if="{{isUploading}}">上传中...</text>
+      <text wx:elif="{{isProcessing}}">生成中，请稍候...</text>
+      <text wx:else>开始试衣</text>
+    </button>
+  </view>
+
+  <!-- 进度展示 -->
+  <view class="progress-card m-card" wx:if="{{isProcessing}}">
+    <view class="progress-dots">
+      <view class="dot"></view>
+      <view class="dot"></view>
+      <view class="dot"></view>
+    </view>
+    <view class="progress-text">{{progress}}</view>
+    <view class="progress-hint">AI 正在渲染中，通常需要 1~3 分钟</view>
+  </view>
+
+  <!-- 结果区域 -->
+  <view class="result-section m-card" wx:if="{{resultImageUrl}}">
+    <view class="result-header">
+      <text class="result-title">试衣效果</text>
+      <view class="result-badge">AI 生成</view>
+    </view>
+    <image src="{{resultImageUrl}}" mode="widthFix" class="result-img" show-menu-by-longpress="{{true}}"/>
+    <view class="result-actions">
+      <button class="save-btn" bindtap="saveImage">保存到相册</button>
+      <button class="retry-btn" bindtap="clearResult">重新试衣</button>
+    </view>
+  </view>
+
+  <view class="safe-bottom"></view>
+</view>

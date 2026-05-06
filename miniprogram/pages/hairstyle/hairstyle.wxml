@@ -1,0 +1,124 @@
+<!--pages/hairstyle/hairstyle.wxml-->
+<view class="page">
+
+  <!-- 顶部标题栏 -->
+  <view class="page-header">
+    <view class="header-bg"></view>
+    <view class="header-decor"></view>
+    <view class="header-content">
+      <view class="page-title">AI 换发型</view>
+      <view class="page-sub">上传参考发型图，AI 为你智能换发</view>
+    </view>
+  </view>
+
+  <!-- 上传区：我的照片 -->
+  <view class="upload-section m-card">
+    <view class="section-label">
+      <view class="label-dot person-dot"></view>
+      <text class="label-text">我的照片</text>
+    </view>
+    <view class="photo-tips">
+      <view class="tip-row">
+        <view class="tip-icon tip-ok"></view>
+        <text class="tip-text">正脸清晰、光线均匀、背景简洁</text>
+      </view>
+      <view class="tip-row">
+        <view class="tip-icon tip-no"></view>
+        <text class="tip-text">侧脸、遮挡面部、多人合照</text>
+      </view>
+    </view>
+    <view class="image-grid">
+      <view class="img-item" wx:for="{{personImages}}" wx:key="index">
+        <image src="{{item.url}}" mode="aspectFill" class="thumb"/>
+        <view class="del-btn" bindtap="removePersonImage" data-index="{{index}}">×</view>
+        <view class="img-badge" wx:if="{{index === 0}}">主图</view>
+      </view>
+      <view class="add-btn" bindtap="pickPersonImages" wx:if="{{personImages.length < 5}}">
+        <view class="add-inner">
+          <view class="add-plus"></view>
+          <text class="add-label">添加照片</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分隔符 -->
+  <view class="section-divider">
+    <view class="divider-line"></view>
+    <text class="divider-text">参考</text>
+    <view class="divider-line"></view>
+  </view>
+
+  <!-- 上传区：目标发型 -->
+  <view class="upload-section m-card">
+    <view class="section-label">
+      <view class="label-dot ref-dot"></view>
+      <text class="label-text">目标发型照</text>
+    </view>
+
+    <!-- 来源提示 -->
+    <view class="source-tip">
+      <view class="source-icon-wrap">
+        <text class="source-icon">💡</text>
+      </view>
+      <text class="source-text">可截取小红书、微博、Pinterest 等平台上你喜欢的发型图片</text>
+    </view>
+
+    <view class="image-grid">
+      <view class="img-item" wx:for="{{refImages}}" wx:key="index">
+        <image src="{{item.url}}" mode="aspectFill" class="thumb"/>
+        <view class="del-btn" bindtap="removeRefImage" data-index="{{index}}">×</view>
+        <view class="img-badge ref-badge" wx:if="{{index === 0}}">主图</view>
+      </view>
+      <view class="add-btn" bindtap="pickRefImages" wx:if="{{refImages.length < 5}}">
+        <view class="add-inner">
+          <view class="add-plus"></view>
+          <text class="add-label">添加发型</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 上传中 -->
+  <view class="uploading-tip" wx:if="{{isUploading}}">
+    <view class="spinner"></view>
+    <text>照片上传中，请稍候...</text>
+  </view>
+
+  <!-- 生成按钮 -->
+  <view class="action-area">
+    <button class="gen-btn {{(isProcessing || isUploading) ? 'gen-btn-disabled' : ''}}"
+            bindtap="startChange"
+            disabled="{{isProcessing || isUploading}}">
+      <text wx:if="{{isUploading}}">上传中...</text>
+      <text wx:elif="{{isProcessing}}">生成中，请稍候...</text>
+      <text wx:else>开始换发型</text>
+    </button>
+  </view>
+
+  <!-- 进度 -->
+  <view class="progress-card m-card" wx:if="{{isProcessing}}">
+    <view class="progress-dots">
+      <view class="dot"></view>
+      <view class="dot"></view>
+      <view class="dot"></view>
+    </view>
+    <view class="progress-text">{{progress}}</view>
+    <view class="progress-hint">AI 正在换发型，通常需要 1~2 分钟</view>
+  </view>
+
+  <!-- 结果 -->
+  <view class="result-section m-card" wx:if="{{resultImageUrl}}">
+    <view class="result-header">
+      <text class="result-title">换发型效果</text>
+      <view class="result-badge">AI 生成</view>
+    </view>
+    <image src="{{resultImageUrl}}" mode="widthFix" class="result-img" show-menu-by-longpress="{{true}}"/>
+    <view class="result-actions">
+      <button class="save-btn" bindtap="saveImage">保存到相册</button>
+      <button class="retry-btn" bindtap="clearResult">重新尝试</button>
+    </view>
+  </view>
+
+  <view class="safe-bottom"></view>
+</view>

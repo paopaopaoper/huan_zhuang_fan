@@ -1,0 +1,10 @@
+{
+  "name": "queryTask",
+  "version": "1.0.0",
+  "description": "查询阿里云百炼异步任务状态",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3",
+    "axios": "^0.27.2"
+  }
+}

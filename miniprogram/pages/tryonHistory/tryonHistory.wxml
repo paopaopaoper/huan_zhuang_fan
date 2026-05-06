@@ -1,0 +1,22 @@
+<!--pages/tryonHistory/tryonHistory.wxml-->
+<view class="page">
+  <view class="history-grid" wx:if="{{list.length > 0}}">
+    <view class="history-card" wx:for="{{list}}" wx:key="_id" bindtap="previewImage" data-url="{{item.resultUrl}}" data-urls="{{resultUrls}}">
+      <image class="history-img" src="{{item.resultUrl}}" mode="aspectFill" lazy-load/>
+      <view class="history-info">
+        <text class="history-date">{{item.dateStr}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="empty" wx:if="{{loaded && list.length === 0}}">
+    <text class="empty-icon">👗</text>
+    <text class="empty-text">还没有试衣记录</text>
+    <text class="empty-hint">去试试换装效果吧</text>
+  </view>
+  <view class="loading" wx:if="{{!loaded}}">
+    <text>加载中...</text>
+  </view>
+  <view class="load-more" wx:if="{{hasMore && loaded}}" bindtap="loadMore">
+    <text>加载更多</text>
+  </view>
+</view>

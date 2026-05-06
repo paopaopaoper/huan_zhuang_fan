@@ -1,0 +1,29 @@
+# 微信小程序
+project.private.config.json
+
+# 编辑器/IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Claude / Workbuddy 工具配置
+.claude/
+.workbuddy/
+
+# 已删除的可恢复文件
+_已删除_可恢复/
+
+# node_modules
+node_modules/
+
+# 云函数 node_modules
+cloudfunctions/*/node_modules/
+
+# 系统文件
+Thumbs.db
+.DS_Store
+
+# 日志
+*.log
